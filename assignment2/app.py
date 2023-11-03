@@ -4,7 +4,7 @@ from bson.objectid import ObjectId # For ObjectId to work
 from bson.errors import InvalidId # For catching InvalidId exception for ObjectId
 import os
 
-mongo_uri = "mongodb://172.17.0.2:27017"  # Replace with your MongoDB URI
+mongo_uri = "mongodb://172.18.0.2:27017"  # Replace with your MongoDB URI
 client = MongoClient(mongo_uri)    #Configure the connection to the database
 db = client["mydatabase"]   #Select the database
 todos = db["todos"]#Select the collection
