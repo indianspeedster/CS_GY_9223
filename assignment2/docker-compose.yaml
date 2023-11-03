@@ -5,8 +5,11 @@ services:
     ports:
       - "8200:8200"
     depends_on:
-      - mongodb
-  mongodb:
+      - mongodb-service
+
+  mongodb-service:
     image: mongo-db:1.0.1
     ports:
       - "27017:27017"
+    volumes:
+      - ./mongodb-data:/data/db  

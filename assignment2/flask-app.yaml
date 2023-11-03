@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: 32733/flask-app:0.0.1  
+        image: indianspeedster/flask-app:0.0.1  
         ports:
         - containerPort: 8200  
 
@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: 32733/mongo-db:1.0.1 
+        image: indianspeedster/mongo-db:1.0.1 
         ports:
         - containerPort: 27017  
 
@@ -53,3 +53,16 @@ spec:
     targetPort: 8200  
     nodePort: 32500
   type: LoadBalancer  
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017

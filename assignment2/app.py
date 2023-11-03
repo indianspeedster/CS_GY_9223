@@ -1,14 +1,13 @@
-from flask import Flask, render_template,request,redirect,url_for # For flask implementation
-from pymongo import MongoClient # Database connector
-from bson.objectid import ObjectId # For ObjectId to work
-from bson.errors import InvalidId # For catching InvalidId exception for ObjectId
+from flask import Flask, render_template,request,redirect,url_for 
+from pymongo import MongoClient 
+from bson.objectid import ObjectId 
+from bson.errors import InvalidId 
 import os
 
-mongo_uri = "mongodb://172.18.0.2:27017"  # Replace with your MongoDB URI
-client = MongoClient(mongo_uri)    #Configure the connection to the database
-db = client["mydatabase"]   #Select the database
-todos = db["todos"]#Select the collection
-print(db)
+mongo_uri = "mongodb://mongodb-service:27017" 
+client = MongoClient(mongo_uri)   
+db = client["mydatabase"]   
+todos = db["todos"]
 app = Flask(__name__)
 title = "TODO with Flask"
 heading = "ToDo Reminder"
