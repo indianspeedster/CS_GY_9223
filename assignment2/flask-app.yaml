@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: flask-app-deployment
 spec:
-  replicas: 2  
+  replicas: 2
   selector:
     matchLabels:
       app: flask-app
@@ -14,9 +14,16 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: indianspeedster/flask-app:0.0.1  
+        image: indianspeedster/flask-app:0.0.1
         ports:
-        - containerPort: 8200  
+        - containerPort: 8200
+        resources:
+          requests:
+            memory: "64Mi"  # Specify the amount of memory you want to request
+            cpu: "250m"     # Specify the amount of CPU you want to request
+          limits:
+            memory: "128Mi" # Specify the maximum amount of memory the container can use
+            cpu: "500m" 
 
 ---
 apiVersion: apps/v1
@@ -66,22 +73,4 @@ spec:
     - protocol: TCP
       port: 27017
       targetPort: 27017
----
-apiVersion: apps/v1  # Add a ReplicationController for the Flask app
-kind: ReplicationController
-metadata:
-  name: flask-app-replication-controller
-spec:
-  replicas: 2  # Set the desired number of replicas for the Flask app
-  selector:
-    app: flask-app
-  template:
-    metadata:
-      labels:
-        app: flask-app
-    spec:
-      containers:
-      - name: flask-app
-        image: indianspeedster/flask-app:0.0.2  # Update the image version to match the deployment
-        ports:
-        - containerPort: 8200
+
