@@ -17,13 +17,7 @@ spec:
         image: indianspeedster/flask-app:0.0.1
         ports:
         - containerPort: 8200
-        resources:
-          requests:
-            memory: "64Mi"  # Specify the amount of memory you want to request
-            cpu: "250m"     # Specify the amount of CPU you want to request
-          limits:
-            memory: "128Mi" # Specify the maximum amount of memory the container can use
-            cpu: "500m" 
+
 
 ---
 apiVersion: apps/v1
