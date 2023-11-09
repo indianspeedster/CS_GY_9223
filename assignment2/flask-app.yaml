@@ -42,7 +42,7 @@ spec:
             path: /status/healthz
             port: liveness-port
           failureThreshold: 30
-          periodSeconds: 10
+          periodSeconds: 10
 
 
 ---
@@ -93,4 +93,3 @@ spec:
     - protocol: TCP
       port: 27017
       targetPort: 27017
-
