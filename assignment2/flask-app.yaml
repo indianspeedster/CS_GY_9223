@@ -21,31 +21,31 @@ spec:
         image: indianspeedster/flask-app:0.0.1
         ports:
         - containerPort: 8200
-      livenessProbe:
-        httpGet:
-          path: /status/healthz
-          port: 8200
-          host: $(POD_IP)
-        initialDelaySeconds: 80
-        periodSeconds: 10
-        timeoutSeconds: 10
-        successThreshold: 1
-        failureThreshold: 15
-      readinessProbe:
-        httpGet:
-          path: /status/healthz
-          port: 8200
-          host: $(POD_IP)
-        initialDelaySeconds: 120
-        periodSeconds: 10
-        timeoutSeconds: 10
-      startupProbe:
-        httpGet:
-          path: /status/healthz
-          port: 8200
-          host: $(POD_IP)
-        failureThreshold: 30
-        periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /status/healthz
+            port: 8200
+            host: $(POD_IP)
+          initialDelaySeconds: 80
+          periodSeconds: 10
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 15
+        readinessProbe:
+          httpGet:
+            path: /status/healthz
+            port: 8200
+            host: $(POD_IP)
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          timeoutSeconds: 10
+        startupProbe:
+          httpGet:
+            path: /status/healthz
+            port: 8200
+            host: $(POD_IP)
+          failureThreshold: 30
+          periodSeconds: 10
 
 ---
 apiVersion: apps/v1
@@ -80,7 +80,7 @@ spec:
     port: 6000  
     targetPort: 8200  
     nodePort: 32500
-    type: LoadBalancer  
+  type: LoadBalancer  
 ---
 apiVersion: v1
 kind: Service
