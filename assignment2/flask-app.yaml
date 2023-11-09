@@ -23,16 +23,26 @@ spec:
         - containerPort: 8200
         livenessProbe:
           httpGet:
-            path: /healthz  
-            port: 8200      
-          initialDelaySeconds: 5  
-          periodSeconds: 10       
+            path: /status/healthz
+            port: 8200
+          initialDelaySeconds: 80
+          periodSeconds: 10
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 15
         readinessProbe:
           httpGet:
-            path: /ready  
-            port: 8200    
-          initialDelaySeconds: 
-          periodSeconds: 5 
+            path: /status/healthz
+            port: liveness-port
+            initialDelaySeconds: 120
+         periodSeconds: 10
+          timeoutSeconds: 10
+        startupProbe:
+          httpGet:
+            path: /status/healthz
+            port: liveness-port
+          failureThreshold: 30
+          periodSeconds: 10
 
 
 ---
