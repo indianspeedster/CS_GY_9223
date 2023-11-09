@@ -21,6 +21,18 @@ spec:
         image: indianspeedster/flask-app:0.0.1
         ports:
         - containerPort: 8200
+        livenessProbe:
+          httpGet:
+            path: /healthz  
+            port: 8200      
+          initialDelaySeconds: 5  
+          periodSeconds: 10       
+        readinessProbe:
+          httpGet:
+            path: /ready  
+            port: 8200    
+          initialDelaySeconds: 
+          periodSeconds: 5 
 
 
 ---
