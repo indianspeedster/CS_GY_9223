@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId 
 from bson.errors import InvalidId 
 import os
+import random
 
 mongo_uri = "mongodb://mongodb-service:27017" 
 client = MongoClient(mongo_uri)   
@@ -19,8 +20,30 @@ def redirect_url():
 		url_for('index')
 
 
+def is_healthy():
+    return random.choice([True, False])
 
 
+def is_ready():
+    try:
+        # Attempt to connect to MongoDB
+        mongo_uri = "mongodb://mongodb-service:27017"
+        client_check = MongoClient(mongo_uri, serverSelectionTimeoutMS=2000)
+        client_check.admin.command('ismaster')  # This checks if the connection is healthy
+        client_check.close()  # Close the connection
+        return True  # MongoDB connection is healthy
+    except ConnectionFailure:
+        return False  # MongoDB connection failed
+
+@app.route('/readiness', methods=['GET'])
+def readiness_check():
+    # Implement your readiness check logic here
+    # For example, you can check if your app has completed any necessary setup
+    # and is ready to receive requests from clients
+    if is_ready():
+        return "Ready", 200
+    else:
+        return "Not Ready", 503 
 
 @app.route("/list")
 def lists ():
@@ -44,6 +67,13 @@ def completed ():
 	todos_l = todos.find({"done":"yes"})
 	a3="active"
 	return render_template('index.html',a3=a3,todos=todos_l,t=title,h=heading)
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    if is_healthy():
+        return "Healthy", 200
+    else:
+        return "Unhealthy", 500
 
 @app.route("/done")
 def done ():
