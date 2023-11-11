@@ -50,14 +50,14 @@ spec:
         app: mongodb
     spec:
       containers:
-      - name: mongodb
-        image: indianspeedster/mongo-db:1.0.1
-        ports:
-        - containerPort: 27017
-        volumeMounts:
-        - name: persistent-storage
-          mountPath: /data/db
-        volumes:
+        - name: mongodb
+          image: indianspeedster/mongo-db:1.0.1
+          ports:
+          - containerPort: 27017
+          volumeMounts:
+          - name: persistent-storage
+            mountPath: /data/db
+      volumes:
         - name: persistent-storage
           persistentVolumeClaim:
             claimName: mongodb-data
