@@ -29,10 +29,10 @@ spec:
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /readiness  
+            path: /readiness
             port: 8200
-          initialDelaySeconds: 10  
-          periodSeconds: 5 
+          initialDelaySeconds: 10
+          periodSeconds: 5
 
 ---
 apiVersion: apps/v1
@@ -40,7 +40,7 @@ kind: Deployment
 metadata:
   name: mongodb-deployment
 spec:
-  replicas: 1  
+  replicas: 1
   selector:
     matchLabels:
       app: mongodb
@@ -51,7 +51,7 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: indianspeedster/mongo-db:1.0.1 
+        image: indianspeedster/mongo-db:1.0.1
         ports:
         - containerPort: 27017
         volumeMounts:
@@ -59,9 +59,9 @@ spec:
           mountPath: /data/db
         volumes:
         - name: persistent-storage
-          persistantVolumeClaim:
+          persistentVolumeClaim:
             claimName: mongodb-data
-        
+
 ---
 apiVersion: v1
 kind: Service
@@ -72,10 +72,11 @@ spec:
     app: flask-app
   ports:
   - protocol: TCP
-    port: 6000  
-    targetPort: 8200  
+    port: 6000
+    targetPort: 8200
     nodePort: 32500
-  type: LoadBalancer  
+  type: LoadBalancer
+
 ---
 apiVersion: v1
 kind: Service
